@@ -1,40 +1,76 @@
+import { IStringParserService, StringParserService } from "./Services/stringParserService";
 
-export class StringCalculator {
+export interface IStringCalculator {
+
+    add(numbers: string): number;
+}
+
+export class StringCalculator implements IStringCalculator {
+
+    private stringParserService: IStringParserService;
+
+    constructor(stringParserService: IStringParserService) {
+
+        this.stringParserService = stringParserService
+    }
 
     public add(numbers: string): number {
 
-        const parsedNumbers: number[] = sanitizeString(numbers).map((x) => parseInt(x)).filter((x) => !isNaN(x));
+        // Parse the string and get the numbers
+        const parsedNumbers = this.stringParserService.parseNumbers(numbers);
 
-        if (!parsedNumbers.length) return 0;
+        // Early return for empty input
+        if (parsedNumbers.length === 0) return 0;
 
-        const negatives = parsedNumbers.filter((x) => x < 0);
+        // Handle negative numbers
+        this.checkForNegatives(parsedNumbers);
 
-        if (negatives.length > 0) throw new Error(`Negatives not allowed: ${negatives.join(", ")}`);
+        // If there's only one number, return it directly
+        if (parsedNumbers.length === 1) return parsedNumbers[0];
 
-        if (parsedNumbers.length == 1) return parsedNumbers[0];
+        // Sum the numbers
+        return this.getSum(parsedNumbers);
+    }
 
-        return parsedNumbers.reduce((acc, num) => acc + num, 0);
+    // Method to check for negative numbers
+    private checkForNegatives(numbers: number[]): void {
+
+        const negatives = numbers.filter(num => num < 0);
+
+        if (negatives.length) throw new Error(`Negatives not allowed: ${negatives.join(", ")}`);
+    }
+
+    // Method to get sum of all numbers
+    private getSum(numbers: number[]): number {
+
+        return numbers.reduce((acc, num) => acc + num, 0);
     }
 }
 
-const sanitizeString = (input: string): string[] => {
+function runProgram(numbers: string): void {
+    try {
 
-    if (!input) return [];
+        const stringParserService: IStringParserService = new StringParserService();
 
-    let delimiter = ","; // Default delimiter
+        const stringCalculator: IStringCalculator = new StringCalculator(stringParserService);
 
-    // Check if the input starts with a custom delimiter declaration
-    if (input.startsWith("//")) {
-        // Extract the custom delimiter from the first line (after "//" and before "\n")
-        delimiter = input.slice(2, input.indexOf("\n"));
+        // Call the add method and log the result
+        const result = stringCalculator.add(numbers);
 
-        // Remove the "//[delimiter]\n" part from the input
-        input = input.slice(input.indexOf("\n") + 1);
+        console.log(result);
     }
+    catch (error: unknown) { 
 
-    // Use split to break the string at the custom delimiter or default (comma) and newlines
-    const regex = new RegExp(`[\\n,${delimiter}]`, 'g');
+        if (error instanceof Error) console.log('An error occurred:', error.message);
 
-    // Replace the delimiters and newlines with an empty string and filter out empty values
-    return input.split(regex)
+        else console.log('An unknown error occurred');
+    }
 }
+
+
+// Example usage
+
+runProgram('//;\n1,2\n3');
+
+runProgram("//,\n-1,-2,3,-4");
+
