@@ -21,5 +21,10 @@ describe('StringCalculator', () => {
         () => expect(calculator.add("1\n2,3")).toBe(6));
 
     it('should return the sum of numbers separated by custom delimeters and new lines',
-        () => expect(calculator.add("//~~\n1,2,3")).toBe(6));
-});                                 
+        () => expect(calculator.add("//~~\n1,2\n3")).toBe(6));
+
+    it('should throw an exception when called with negative numbers', () => {
+        expect(() =>  calculator.add("//,\n-1,-2,3,-4")).toThrow("Negatives not allowed: -1, -2, -4");
+    });
+
+});
