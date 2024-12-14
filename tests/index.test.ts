@@ -17,10 +17,9 @@ describe('StringCalculator', () => {
     it('should return the sum of numbers delimited by a comma',
         () => expect(calculator.add("1,2,3")).toBe(6));
 
-    // This test can optionally be removed since the case is handled in the preceeding test 
     it('should return the sum of numbers separated by commas and new lines',
         () => expect(calculator.add("1\n2,3")).toBe(6));
 
     it('should return the sum of numbers separated by custom delimeters and new lines',
-        () => expect(calculator.add("//:1\n2:3")).toBe(6));
-});
+        () => expect(calculator.add("//~~\n1,2,3")).toBe(6));
+});                                 
