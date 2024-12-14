@@ -15,4 +15,8 @@ describe('StringCalculator', () => {
   it('should return the number when a single number is provided', () => {
     expect(calculator.add('1')).toBe(1);
   });
+
+  it('should return the sum of numbers delimited by a comma', () => {
+    expect(calculator.add("1,2,3")).toBe(6); 
+  });
 });
