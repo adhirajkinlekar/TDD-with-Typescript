@@ -6,7 +6,7 @@ export class StringCalculator {
         
         if (numbers === "") return 0; 
 
-        const parsedNumbers: number[] = numbers.split(',').map((x)=> parseInt(x));
+        const parsedNumbers: number[] = numbers.split(/[\n,]/).map((x)=> parseInt(x));
 
         if(parsedNumbers.length == 1) return parsedNumbers[0];
 
