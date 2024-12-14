@@ -4,9 +4,11 @@ export class StringCalculator {
 
     public add(numbers: string): number {
         
-        if (numbers === "") {
-            return 0;
-          }
+        if (numbers === "") return 0; 
+
+        const parsedNumbers: number[] = numbers.split(',').map((x)=> parseInt(x));
+
+        if(parsedNumbers.length == 1) return parsedNumbers[0];
 
         return 0;
     }
