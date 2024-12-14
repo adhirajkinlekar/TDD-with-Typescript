@@ -10,7 +10,7 @@ export class StringCalculator {
 
         if(parsedNumbers.length == 1) return parsedNumbers[0];
 
-        return 0;
+        return parsedNumbers.reduce((acc, num) => acc + num, 0);
     }
   }
   
