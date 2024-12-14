@@ -7,6 +7,10 @@ export class StringCalculator {
 
         if (!parsedNumbers.length) return 0;
 
+        const negatives = parsedNumbers.filter((x) => x < 0);
+
+        if (negatives.length > 0) throw new Error(`Negatives not allowed: ${negatives.join(", ")}`);
+
         if (parsedNumbers.length == 1) return parsedNumbers[0];
 
         return parsedNumbers.reduce((acc, num) => acc + num, 0);
