@@ -1,6 +1,6 @@
 # String Calculator
 
-This project implements a simple string calculator in TypeScript. It supports parsing and summing numbers from strings with various delimiters and provides test coverage to ensure correctness.
+This project implements a simple string calculator in TypeScript. It supports parsing and summing numbers from strings with various delimiters and provides test coverage to ensure correctness. The development process has followed **Test-Driven Development (TDD)** principles, with incremental commits showcasing the working and evolution of the code alongside its tests.
 
 ## Problem statement
 https://blog.incubyte.co/blog/tdd-assessment/
