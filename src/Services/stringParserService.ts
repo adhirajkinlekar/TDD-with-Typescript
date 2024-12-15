@@ -6,7 +6,6 @@ export interface IStringParserService {
 
 export class StringParserService implements IStringParserService{
 
-    // Method to parse numbers from the input string
     public parseNumbers(input: string): number[] {
 
         const sanitizedInput = this.sanitizeString(input);
@@ -16,7 +15,6 @@ export class StringParserService implements IStringParserService{
             .filter(x => !isNaN(x));
     }
 
-    // Method to sanitize the input string and extract the numbers
     private sanitizeString(input: string): string[] {
 
         if (!input) return [];
@@ -26,9 +24,11 @@ export class StringParserService implements IStringParserService{
         // Check if custom delimiter is specified
         if (input.startsWith("//")) {
 
+            // Get the custom delimiter part
             delimiter = input.slice(2, input.indexOf("\n"));
 
-            input = input.slice(input.indexOf("\n") + 1); // Remove the delimiter part
+            // Remove the delimiter specifier (e.g., //[delimiter]\n)
+            input = input.slice(input.indexOf("\n") + 1); 
         }
 
         const regex = new RegExp(`[\\n,${delimiter}]`, 'g');

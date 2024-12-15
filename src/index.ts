@@ -7,6 +7,7 @@ export interface IStringCalculator {
 
 export class StringCalculator implements IStringCalculator {
 
+    // Dependency injection could be used here, but keeping the setup simple for this test.
     private stringParserService: IStringParserService;
 
     constructor(stringParserService: IStringParserService) {
@@ -19,20 +20,17 @@ export class StringCalculator implements IStringCalculator {
         // Parse the string and get the numbers
         const parsedNumbers = this.stringParserService.parseNumbers(numbers);
 
-        // Early return for empty input
+        // if input consist of an empty string or invalid input, return 0
         if (parsedNumbers.length === 0) return 0;
 
-        // Handle negative numbers
         this.checkForNegatives(parsedNumbers);
 
         // If there's only one number, return it directly
         if (parsedNumbers.length === 1) return parsedNumbers[0];
 
-        // Sum the numbers
         return this.getSum(parsedNumbers);
     }
 
-    // Method to check for negative numbers
     private checkForNegatives(numbers: number[]): void {
 
         const negatives = numbers.filter(num => num < 0);
@@ -40,7 +38,6 @@ export class StringCalculator implements IStringCalculator {
         if (negatives.length) throw new Error(`Negatives not allowed: ${negatives.join(", ")}`);
     }
 
-    // Method to get sum of all numbers
     private getSum(numbers: number[]): number {
 
         return numbers.reduce((acc, num) => acc + num, 0);
@@ -54,12 +51,11 @@ function runProgram(numbers: string): void {
 
         const stringCalculator: IStringCalculator = new StringCalculator(stringParserService);
 
-        // Call the add method and log the result
         const result = stringCalculator.add(numbers);
 
         console.log(result);
     }
-    catch (error: unknown) { 
+    catch (error: unknown) {
 
         if (error instanceof Error) console.log('An error occurred:', error.message);
 
@@ -72,5 +68,4 @@ function runProgram(numbers: string): void {
 
 runProgram('//;\n1,2\n3');
 
-runProgram("//,\n-1,-2,3,-4");
 
