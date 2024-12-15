@@ -8,7 +8,7 @@ export interface IStringCalculator {
 export class StringCalculator implements IStringCalculator {
 
     // Dependency injection could be used here, but keeping the setup simple for this test.
-    private stringParserService: IStringParserService;
+    private readonly stringParserService: IStringParserService;
 
     constructor(stringParserService: IStringParserService) {
 
