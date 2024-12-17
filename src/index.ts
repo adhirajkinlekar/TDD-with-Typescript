@@ -1,5 +1,5 @@
-import { INumberParserService, NumberParserService } from "./Services/number_parser";
-import { IStringCalculatorService, StringCalculatorService } from "./Services/string_calculator";
+import { NumberParserService } from "./Services/number_parser";
+import { StringCalculatorService } from "./Services/string_calculator";
 
 function main(): void {
 
@@ -7,9 +7,7 @@ function main(): void {
 
     try {
 
-        const numberParserService: INumberParserService = new NumberParserService();
-
-        const stringCalculator: IStringCalculatorService = new StringCalculatorService(numberParserService);
+        const stringCalculator = new StringCalculatorService(new NumberParserService());
 
         const result = stringCalculator.add(input);
 

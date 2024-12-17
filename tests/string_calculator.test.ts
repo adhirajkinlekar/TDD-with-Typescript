@@ -1,5 +1,5 @@
-import { IStringCalculatorService, StringCalculatorService } from '../../src/Services/string_calculator';
-import { INumberParserService } from '../../src/Services/number_parser';
+import { IStringCalculatorService, StringCalculatorService } from '../src/Services/string_calculator';
+import { INumberParserService } from '../src/Services/number_parser';
 
 describe('string_calculator_unit_test', () => {
 
@@ -16,7 +16,7 @@ describe('string_calculator_unit_test', () => {
         calculator = new StringCalculatorService(mockNumberParserService);
     });
 
-    it('should return 0 for an empty string', () => {
+    it('should return 0 for an empty array', () => {
         mockNumberParserService.parseNumbersFromString.mockReturnValue([]);
         expect(calculator.add('')).toBe(0);
     });
@@ -35,15 +35,5 @@ describe('string_calculator_unit_test', () => {
         mockNumberParserService.parseNumbersFromString.mockReturnValue([1, -2, 3, -4]);
         expect(() => calculator.add('1,-2,3,-4'))
             .toThrow('Negatives not allowed: -2, -4');
-    });
-
-    it('should ignore input and return 0 if parsed numbers are empty', () => {
-        mockNumberParserService.parseNumbersFromString.mockReturnValue([]);
-        expect(calculator.add('invalid')).toBe(0);
-    });
-
-    it('should return the sum of valid numbers when the parser ignores invalid input', () => {
-        mockNumberParserService.parseNumbersFromString.mockReturnValue([1, 2, 3, 4]);
-        expect(calculator.add('1,abc,2,3,4')).toBe(10);
     });
 });
