@@ -1,21 +1,21 @@
 
-export interface IStringParserService {
+export interface INumberParserService  {
 
-    parseNumbers(input: string): number[];
+    parseNumbersFromString(input: string): number[];
 }
 
-export class StringParserService implements IStringParserService{
+export class NumberParserService implements INumberParserService {
 
-    public parseNumbers(input: string): number[] {
+    public parseNumbersFromString(input: string): number[] {
 
-        const sanitizedInput = this.sanitizeString(input);
+        const processedNumbers = this.extractNumbersFromInput(input);
 
-        return sanitizedInput
+        return processedNumbers 
             .map(x => parseInt(x))
             .filter(x => !isNaN(x));
     }
 
-    private sanitizeString(input: string): string[] {
+    private extractNumbersFromInput(input: string): string[] {
 
         if (!input) return [];
 
