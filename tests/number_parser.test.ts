@@ -7,7 +7,7 @@ describe('number_parser_unit_test', () => {
     beforeEach(() => {
         numberParserService = new NumberParserService();
     });
-
+  
     it('should return an empty array for an empty string',
         () => expect(numberParserService.parseNumbersFromString('')).toEqual([]));
 
@@ -29,3 +29,4 @@ describe('number_parser_unit_test', () => {
     it('should parse numbers with a custom multi-character delimiter',
         () => expect(numberParserService.parseNumbersFromString('//***\n1***2***3')).toEqual([1, 2, 3]));
 });
+  
