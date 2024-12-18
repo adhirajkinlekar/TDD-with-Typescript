@@ -72,7 +72,7 @@ Clone the repository:
 
 ```bash
 git clone <repository_url>
-cd string_calculator
+cd TDD_with_Typescript
 ```
 
 Install the dependencies:
