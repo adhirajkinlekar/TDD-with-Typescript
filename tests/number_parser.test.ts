@@ -4,10 +4,8 @@ describe('number_parser_unit_test', () => {
 
     let numberParserService: NumberParserService;
 
-    beforeEach(() => {
-        numberParserService = new NumberParserService();
-    });
-  
+    beforeEach(() => numberParserService = new NumberParserService());
+
     it('should return an empty array for an empty string',
         () => expect(numberParserService.parseNumbersFromString('')).toEqual([]));
 
@@ -27,6 +25,9 @@ describe('number_parser_unit_test', () => {
         () => expect(numberParserService.parseNumbersFromString('//;\n1;2;3')).toEqual([1, 2, 3]));
 
     it('should parse numbers with a custom multi-character delimiter',
-        () => expect(numberParserService.parseNumbersFromString('//***\n1***2***3')).toEqual([1, 2, 3]));
+        () => expect(numberParserService.parseNumbersFromString('//***\n1***2***32')).toEqual([1, 2, 32]));
+
+    it('should parse numbers with a custom unique multi-character delimiter',
+        () => expect(numberParserService.parseNumbersFromString('//*,%\n1*2%6')).toEqual([1, 2, 6]));
 });
-  
+ 

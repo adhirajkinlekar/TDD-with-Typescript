@@ -8,7 +8,6 @@ describe('string_calculator_unit_test', () => {
     let mockedNumberParserService: jest.Mocked<INumberParserService>;
 
     beforeEach(() => {
-        // Create a mock for NumberParserService
         mockedNumberParserService = {
             parseNumbersFromString: jest.fn()
         };

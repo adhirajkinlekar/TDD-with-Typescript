@@ -1,6 +1,6 @@
+import { defaultDelimiter } from "../util/constants";
 
-export interface INumberParserService  {
-
+export interface INumberParserService {
     parseNumbersFromString(input: string): number[];
 }
 
@@ -8,31 +8,31 @@ export class NumberParserService implements INumberParserService {
 
     public parseNumbersFromString(input: string): number[] {
 
-        const processedNumbers = this.extractNumbersFromInput(input);
+        const formattedNumbers = this.getFormattedNumbers(input);
 
-        return processedNumbers 
-            .map(x => parseInt(x))
-            .filter(x => !isNaN(x));
+        return this.validateNumbers(formattedNumbers);  
     }
 
-    private extractNumbersFromInput(input: string): string[] {
+    private getFormattedNumbers(input: string): string[] {
 
-        if (!input) return [];
-
-        let delimiter = ","; // Default delimiter
-
-        // Check if custom delimiter is specified
+        if (!input) return []; 
+ 
         if (input.startsWith("//")) {
 
-            // Get the custom delimiter part
-            delimiter = input.slice(2, input.indexOf("\n"));
+            const customDelimiters = input.slice(2, input.indexOf("\n")).split(",");
 
-            // Remove the delimiter specifier (e.g., //[delimiter]\n)
             input = input.slice(input.indexOf("\n") + 1); 
+
+            customDelimiters.forEach(delimiter => input = input.split(delimiter).join(defaultDelimiter));
         }
 
-        const regex = new RegExp(`[\\n,${delimiter}]`, 'g');
+        input = input.split("\n").join(defaultDelimiter);
 
-        return input.split(regex).filter(Boolean);
+        return input.split(defaultDelimiter);
+    }
+
+    private validateNumbers(input: string[]): number[] {
+
+        return input.map(x => parseInt(x)).filter(x => !isNaN(x));
     }
 }

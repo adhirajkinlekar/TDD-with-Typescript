@@ -3,7 +3,7 @@ import { StringCalculatorService } from "./Services/string_calculator";
 
 function main(): void {
 
-    const input = "//;\n1;2\n3"; // Example input; replace or gather input dynamically as needed.
+    const input = "//;\n1;2;3"; // Example input; replace or gather input dynamically as needed.
 
     try {
 
