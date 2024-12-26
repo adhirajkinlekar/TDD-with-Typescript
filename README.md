@@ -72,7 +72,7 @@ Clone the repository:
 
 ```bash
 git clone <repository_url>
-cd TDD_with_Typescript
+cd TDD-with-Typescript
 ```
 
 Install the dependencies:
